@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "next": "12.0.4",
+    "ramda": "^0.27.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-modal": "^3.14.4"
   },
   "devDependencies": {
     "eslint": "7.32.0",
