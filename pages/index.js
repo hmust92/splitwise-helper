@@ -47,7 +47,6 @@ export default function Home() {
       </Head>
 
       <div className={styles.container}>
-
         <div>
           <div>
             <h3 style={{ textAlign: "center", margin: 0 }}>Subtotal</h3>
@@ -82,6 +81,11 @@ export default function Home() {
               Tip
             </h3>
             <Input
+              name="tipAmount"
+              value={tip}
+              onChange={(e) => {
+                setTip(e.target.value);
+              }}
               style={{
                 marginTop: 10,
                 width: '100%'
@@ -89,7 +93,6 @@ export default function Home() {
               placeholder="Your Tip"
             />
           </div>
-
           <div style={{ display: "flex", alignItems: "center", marginTop: 10 }}>
             <h2 style={{ flex: 1 }}>Orders For The Table</h2>
             <button
