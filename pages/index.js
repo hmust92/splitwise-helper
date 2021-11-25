@@ -138,7 +138,23 @@ export default function Home() {
           </div>
           <ul style={{ marginTop: 0 }}>
             {tableOrders.map(({ id, amount }) => (
-              <li key={id}>${amount}</li>
+              <li key={id}>
+                <div style={{ display: "flex" }}>
+                  <div>${amount}</div>
+                  <button
+                    style={{
+                      fontSize: 12,
+                      color: "blue",
+                      padding: 0,
+                      borderStyle: "none",
+                      background: "transparent",
+                      marginLeft: 5,
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
@@ -159,7 +175,23 @@ export default function Home() {
           <ul style={{ marginTop: 0 }}>
             {individualOrders.map(({ id, amount, person }) => (
               <li key={id}>
-                ${amount} ({person})
+                <div style={{ display: "flex" }}>
+                  <div>
+                    ${amount} ({person})
+                  </div>
+                  <button
+                    style={{
+                      fontSize: 12,
+                      color: "blue",
+                      padding: 0,
+                      borderStyle: "none",
+                      background: "transparent",
+                      marginLeft: 5,
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
