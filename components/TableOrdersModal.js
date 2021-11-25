@@ -17,6 +17,7 @@ const TableOrderModals = ({ isOpen, onRequestClose, onSubmit }) => {
                     marginRight: "-50%",
                     transform: "translate(-50%, -50%)",
                     background: "#f2f2f2",
+                    maxWidth: "80%",
                 },
                 overlay: {
                     backgroundColor: "rgb(155 155 155 / 90%)",
