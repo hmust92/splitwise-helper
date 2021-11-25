@@ -3,6 +3,7 @@ import Head from "next/head";
 import React from "react";
 
 import IndividualOrderModal from "../components/IndividualOrderModal";
+import Input from "../components/Input";
 import ResultsModal from "../components/ResultsModal";
 import TableOrdersModal from "../components/TableOrdersModal";
 import styles from "../styles/Home.module.css";
@@ -46,10 +47,11 @@ export default function Home() {
       </Head>
 
       <div className={styles.container}>
+
         <div>
           <div>
             <h3 style={{ textAlign: "center", margin: 0 }}>Subtotal</h3>
-            <input
+            <Input
               name="subTotalAmount"
               value={subtotal}
               onChange={(e) => {
@@ -57,21 +59,14 @@ export default function Home() {
               }}
               style={{
                 marginTop: 10,
-                marginRight: 3,
-                padding: 5,
-                display: "inline-block",
-                border: "1px solid #ccc",
-                boxShadow: "inset 0 1px 3px #ddd",
-                borderRadius: 4,
-                fontSize: 15,
-                width: "100%",
+                width: '100%'
               }}
               placeholder="Your Subtotal"
             />
             <h3 style={{ textAlign: "center", margin: "10px 0px 0px 0px" }}>
               Tax
             </h3>
-            <input
+            <Input
               name="taxAmount"
               value={tax}
               onChange={(e) => {
@@ -79,40 +74,22 @@ export default function Home() {
               }}
               style={{
                 marginTop: 10,
-                marginRight: 3,
-                padding: 5,
-                display: "inline-block",
-                border: "1px solid #ccc",
-                boxShadow: "inset 0 1px 3px #ddd",
-                borderRadius: 4,
-                fontSize: 15,
-                width: "100%",
+                width: '100%'
               }}
               placeholder="Your Tax"
             />
             <h3 style={{ textAlign: "center", margin: "10px 0px 0px 0px" }}>
               Tip
             </h3>
-            <input
-              name="tipAmount"
-              value={tip}
-              onChange={(e) => {
-                setTip(e.target.value);
-              }}
+            <Input
               style={{
                 marginTop: 10,
-                marginRight: 3,
-                padding: 5,
-                display: "inline-block",
-                border: "1px solid #ccc",
-                boxShadow: "inset 0 1px 3px #ddd",
-                borderRadius: 4,
-                fontSize: 15,
-                width: "100%",
+                width: '100%'
               }}
               placeholder="Your Tip"
             />
           </div>
+
           <div style={{ display: "flex", alignItems: "center", marginTop: 10 }}>
             <h2 style={{ flex: 1 }}>Orders For The Table</h2>
             <button

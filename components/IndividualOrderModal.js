@@ -1,29 +1,13 @@
-import Modal from "react-modal";
 import React from "react";
+
+import Input from './Input';
+import Modal from "./Modal";
 
 const IndividualOrderModal = ({ isOpen, onRequestClose, onSubmit }) => {
     const [person, setPerson] = React.useState("Hasan");
     const [amount, setAmount] = React.useState("");
     return (
-        <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
-            style={{
-                content: {
-                    top: "50%",
-                    left: "50%",
-                    right: "auto",
-                    bottom: "auto",
-                    marginRight: "-50%",
-                    transform: "translate(-50%, -50%)",
-                    background: "#f2f2f2",
-                    maxWidth: "80%",
-                },
-                overlay: {
-                    backgroundColor: "rgb(155 155 155 / 90%)",
-                },
-            }}
-        >
+        <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
             <label
                 style={{
                     display: "flex",
@@ -64,20 +48,11 @@ const IndividualOrderModal = ({ isOpen, onRequestClose, onSubmit }) => {
                     flexDirection: "column",
                 }}
             >
-                <input
+                <Input
                     name="individualOrderAmount"
                     value={amount}
                     onChange={(e) => {
                         setAmount(e.target.value);
-                    }}
-                    style={{
-                        marginRight: 3,
-                        padding: 5,
-                        display: "inline-block",
-                        border: "1px solid #ccc",
-                        boxShadow: "inset 0 1px 3px #ddd",
-                        borderRadius: 4,
-                        fontSize: 15,
                     }}
                     placeholder="Your Amount"
                 />
