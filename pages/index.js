@@ -38,6 +38,37 @@ export default function Home() {
 
   const [results, setResults] = React.useState([]);
 
+  const calculate = (e) => {
+    e.preventDefault();
+
+    const multiplierPercentage =
+      (100 * (parseFloat(tax) + parseFloat(tip))) / parseFloat(subtotal);
+    const multiplier = 1 + multiplierPercentage / 100;
+
+    const people = pipe(pluck("person"), uniq)(individualOrders);
+    const totalSharedAmountPerPerson =
+      tableOrders.reduce((acc, { amount }) => acc + amount, 0) / people.length;
+
+    setResults(
+      people.map((person) => {
+        const totalIndividualAmountForPerson = pipe(
+          filter(propEq("person", person)),
+          reduce((acc, { amount }) => acc + amount, 0)
+        )(individualOrders);
+
+        return {
+          id: makeId(),
+          person,
+          totalAmount:
+            (totalIndividualAmountForPerson + totalSharedAmountPerPerson) *
+            multiplier,
+        };
+      })
+    );
+
+    setIsResultsModalOpen(true);
+  };
+
   return (
     <>
       <Head>
@@ -58,7 +89,7 @@ export default function Home() {
               }}
               style={{
                 marginTop: 10,
-                width: '100%'
+                width: "100%",
               }}
               placeholder="Your Subtotal"
             />
@@ -73,7 +104,7 @@ export default function Home() {
               }}
               style={{
                 marginTop: 10,
-                width: '100%'
+                width: "100%",
               }}
               placeholder="Your Tax"
             />
@@ -88,7 +119,7 @@ export default function Home() {
               }}
               style={{
                 marginTop: 10,
-                width: '100%'
+                width: "100%",
               }}
               placeholder="Your Tip"
             />
@@ -137,42 +168,7 @@ export default function Home() {
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: 30 }}
         >
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-
-              const multiplierPercentage =
-                (100 * (parseFloat(tax) + parseFloat(tip))) /
-                parseFloat(subtotal);
-              const multiplier = 1 + multiplierPercentage / 100;
-              const people = pipe(pluck("person"), uniq)(individualOrders);
-              const totalSharedAmountPerPerson =
-                tableOrders.reduce((acc, { amount }) => acc + amount, 0) /
-                people.length;
-              console.log({ totalSharedAmountPerPerson, multiplier, people });
-              setResults(
-                people.map((person) => {
-                  const totalIndividualAmountForPerson = pipe(
-                    filter(propEq("person", person)),
-                    reduce((acc, { amount }) => acc + amount, 0)
-                  )(individualOrders);
-
-                  return {
-                    id: makeId(),
-                    person,
-                    totalAmount:
-                      (totalIndividualAmountForPerson +
-                        totalSharedAmountPerPerson) *
-                      multiplier,
-                  };
-                })
-              );
-
-              setIsResultsModalOpen(true);
-            }}
-          >
-            Calculate
-          </button>
+          <button onClick={calculate}>Calculate</button>
         </div>
       </div>
 
