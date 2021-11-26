@@ -32,15 +32,13 @@ function makeId() {
 
 export default function Home() {
   const router = useRouter();
+
   const [subtotal, setSubtotal] = React.useState("");
   const [tax, setTax] = React.useState("");
   const [tip, setTip] = React.useState("");
 
-  const [isResultsModalOpen, setIsResultsModalOpen] = React.useState(false);
-
   const [tableOrders, setTableOrders] = React.useState([]);
   const [individualOrders, setIndividualOrders] = React.useState([]);
-
   const [results, setResults] = React.useState([]);
 
   const calculate = (e) => {
@@ -71,7 +69,9 @@ export default function Home() {
       })
     );
 
-    setIsResultsModalOpen(true);
+    router.push("/home/[[...params]]", "/home/results", {
+      scroll: false,
+    });
   };
 
   return (
@@ -295,8 +295,10 @@ export default function Home() {
       />
 
       <ResultsModal
-        isOpen={isResultsModalOpen}
-        onRequestClose={() => setIsResultsModalOpen(false)}
+        isOpen={router.query.params?.[0] === "results"}
+        onRequestClose={() => {
+          router.back();
+        }}
         results={results}
       />
     </>

@@ -87,7 +87,7 @@ const IndividualOrderModal = ({
                         onSubmit?.({ amount, person });
                     }}
                 >
-                    Add
+                    {id ? "Edit" : "Add"}
                 </button>
             </div>
         </Modal>

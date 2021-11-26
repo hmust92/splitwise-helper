@@ -1,4 +1,4 @@
-import { find, pipe, prop, propEq } from 'ramda';
+import { find, pipe, prop, propEq } from "ramda";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -52,7 +52,7 @@ const TableOrderModals = ({
                     onSubmit?.(tableOrderAmount);
                 }}
             >
-                Add
+                {id ? "Edit" : "Add"}
             </button>
         </Modal>
     );
