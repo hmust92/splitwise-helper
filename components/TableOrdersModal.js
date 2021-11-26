@@ -36,6 +36,9 @@ const TableOrderModals = ({
                 name="tableOrderAmount"
                 value={tableOrderAmount}
                 onChange={(e) => {
+                    if (isNaN(e.target.value)) {
+                        return;
+                    }
                     setTableOrderAmount(e.target.value);
                 }}
                 style={{
@@ -46,6 +49,7 @@ const TableOrderModals = ({
             />
             <button
                 style={{ marginLeft: 3 }}
+                disabled={!tableOrderAmount || Number(tableOrderAmount) <= 0}
                 onClick={(e) => {
                     e.preventDefault();
                     setTableOrderAmount("");

@@ -21,13 +21,13 @@ const IndividualOrderModal = ({
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             onAfterOpen={() => {
-                const initialAmount = pipe(
-                    find(propEq("id", id)),
-                    prop("amount")
-                )(individualOrders);
+                const individualOrder = pipe(find(propEq("id", id)))(
+                    individualOrders
+                );
 
-                if (id && initialAmount) {
-                    setAmount(initialAmount);
+                if (id && individualOrder?.person && individualOrder?.amount) {
+                    setPerson(individualOrder?.person);
+                    setAmount(individualOrder?.amount);
                 }
             }}
         >
@@ -75,11 +75,15 @@ const IndividualOrderModal = ({
                     name="individualOrderAmount"
                     value={amount}
                     onChange={(e) => {
+                        if (isNaN(e.target.value)) {
+                            return;
+                        }
                         setAmount(e.target.value);
                     }}
                     placeholder="Your Amount"
                 />
                 <button
+                    disabled={!amount || Number(amount) <= 0}
                     style={{ marginTop: 10 }}
                     onClick={(e) => {
                         e.preventDefault();
