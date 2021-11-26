@@ -1,13 +1,36 @@
+import { find, pipe, prop, propEq } from "ramda";
+import { useRouter } from "next/router";
 import React from "react";
 
-import Input from './Input';
+import Input from "./Input";
 import Modal from "./Modal";
 
-const IndividualOrderModal = ({ isOpen, onRequestClose, onSubmit }) => {
+const IndividualOrderModal = ({
+    isOpen,
+    onRequestClose,
+    onSubmit,
+    individualOrders,
+}) => {
+    const router = useRouter();
+    const id = router.query.params?.[1];
+
     const [person, setPerson] = React.useState("Hasan");
     const [amount, setAmount] = React.useState("");
     return (
-        <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            onAfterOpen={() => {
+                const initialAmount = pipe(
+                    find(propEq("id", id)),
+                    prop("amount")
+                )(individualOrders);
+
+                if (id && initialAmount) {
+                    setAmount(initialAmount);
+                }
+            }}
+        >
             <label
                 style={{
                     display: "flex",

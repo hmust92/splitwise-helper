@@ -36,13 +36,6 @@ export default function Home() {
   const [tax, setTax] = React.useState("");
   const [tip, setTip] = React.useState("");
 
-  const [isTableOrdersModalOpen, setIsTableOrdersModalOpen] = React.useState(
-    false
-  );
-  const [isIndividualOrderOpen, setIsIndividualOrderOpen] = React.useState(
-    false
-  );
-
   const [isResultsModalOpen, setIsResultsModalOpen] = React.useState(false);
 
   const [tableOrders, setTableOrders] = React.useState([]);
@@ -191,7 +184,9 @@ export default function Home() {
               style={{ height: "fit-content" }}
               onClick={(e) => {
                 e.preventDefault();
-                setIsIndividualOrderOpen(true);
+                router.push("/home/[[...params]]", "/home/individualOrder", {
+                  scroll: false,
+                });
               }}
             >
               Add
@@ -212,6 +207,16 @@ export default function Home() {
                       borderStyle: "none",
                       background: "transparent",
                       marginLeft: 5,
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push(
+                        "/home/[[...params]]",
+                        `/home/individualOrder/${id}`,
+                        {
+                          scroll: false,
+                        }
+                      );
                     }}
                   >
                     Edit
@@ -258,18 +263,35 @@ export default function Home() {
       />
 
       <IndividualOrderModal
-        isOpen={isIndividualOrderOpen}
-        onRequestClose={() => setIsIndividualOrderOpen(false)}
-        onSubmit={({ amount, person }) => {
-          const tableOrderId = setIndividualOrders((prev) =>
-            prev.concat({
-              id: makeId(),
-              amount: parseFloat(amount),
-              person,
-            })
-          );
-          setIsIndividualOrderOpen(false);
+        isOpen={router.query.params?.[0] === "individualOrder"}
+        onRequestClose={() => {
+          router.back();
         }}
+        onSubmit={({ amount, person }) => {
+          const individualOrderId = router.query.params?.[1];
+          if (individualOrderId) {
+            const index = findIndex(propEq("id", individualOrderId))(
+              individualOrders
+            );
+            setIndividualOrders(
+              update(index, {
+                id: individualOrderId,
+                person,
+                amount: parseFloat(amount),
+              })
+            );
+          } else {
+            setIndividualOrders(
+              append({
+                id: makeId(),
+                person,
+                amount: parseFloat(amount),
+              })
+            );
+          }
+          router.back();
+        }}
+        individualOrders={individualOrders}
       />
 
       <ResultsModal
