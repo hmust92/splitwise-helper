@@ -61,6 +61,8 @@ const IndividualOrderModal = ({
                     <option value="Shayan">Shayan</option>
                     <option value="Arshad">Arshad</option>
                     <option value="Omair">Omair</option>
+                    <option value="Saamer">Saamer</option>
+                    <option value="Pakobe">Pakobe</option>
                 </select>
             </label>
             <div style={{ fontSize: 15, marginTop: 10 }}>Amount</div>
